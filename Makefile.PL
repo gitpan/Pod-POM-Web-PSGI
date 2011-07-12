@@ -20,12 +20,10 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'Pod::POM::Web::PSGI',
   'PREREQ_PM' => {
-    'CGI::Compile' => '0.15',
     'CGI::Emulate::PSGI' => '0.12',
-    'Plack' => '0.9979',
     'Pod::POM::Web' => '1.17'
   },
-  'VERSION' => '0.001',
+  'VERSION' => '0.002',
   'test' => {
     'TESTS' => 't/*.t'
   }

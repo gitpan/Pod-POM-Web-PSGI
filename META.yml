@@ -13,11 +13,9 @@ meta-spec:
   version: 1.4
 name: Pod-POM-Web-PSGI
 requires:
-  CGI::Compile: 0.15
   CGI::Emulate::PSGI: 0.12
-  Plack: 0.9979
   Pod::POM::Web: 1.17
 resources:
   homepage: http://github.com/dolmen/p5-Pod-POM-Web-PSGI
   repository: http://github.com/dolmen/p5-Pod-POM-Web-PSGI
-version: 0.001
+version: 0.002

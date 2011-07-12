@@ -5,27 +5,19 @@ use warnings;
 
 our $VERSION;
 BEGIN {
-    $VERSION = '0.001';
+    $VERSION = '0.002';
 }
 
-# This is not a real module: this file is run either:
-# - as a PSGI application script (like .psgi)
-# - as a CGI script (loaded by the PSGI application)
+use CGI::Emulate::PSGI;
+use Pod::POM::Web;
 
-if (exists $ENV{'GATEWAY_INTERFACE'}) {
-    # Launched as a CGI script
-    require Pod::POM::Web;
+# The PSGI application, returned as the last value
+# Pod::POM::Web is already designed as a persistent webapp, so that's easy
+# (for the curious who wants an example of how to wrap a generic CGI application
+#  see on BackPAN how Pod::POM::Web::PSGI 0.001 was implemented)
+CGI::Emulate::PSGI->handler(sub {
     Pod::POM::Web->handler
-} else {
-    # Lauched as a PSGI script
-    require File::Spec;
-    #require CGI::Emulate::PSGI;
-    #require CGI::Compile;
-    require Plack::App::WrapCGI;
-
-    # The PSGI application, returned as the last value
-    Plack::App::WrapCGI->new(script => __FILE__)->to_app
-}
+})
 __END__
 
 =head1 NAME
@@ -47,11 +39,6 @@ Load Pod::POM::Web as a PSGI application:
 This is a wrapper for L<Pod::POM::Web> to transform it as a L<PSGI> application.
 This allow then to integrate Pod::POM::Web in a bigger web application, by
 mounting it for example with L<Plack::Builder>.
-
-
-Note that the current implementation is only a PSGI wrapper around
-Pod::POM::Web loaded as a CGI (using L<Plack::App::WrapCGI>). This is absolutely
-inefficient. So B<consider this just as a proof of concept>.
 
 =head1 SEE ALSO
 
